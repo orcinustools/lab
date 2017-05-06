@@ -1,0 +1,17 @@
+#!/bin/bash
+cd /etc/yum.repos.d
+#wget http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+#wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
+wget http://download.virtualbox.org/virtualbox/rpm/el/virtualbox.repo
+yum update -y
+yum install -y binutils qt gcc make patch libgomp glibc-headers glibc-devel kernel-headers kernel-devel dkms
+#wget http://download.virtualbox.org/virtualbox/5.1.22/VirtualBox-5.1-5.1.22_115126_el7-1.x86_64.rpm
+#rpm -Uvh VirtualBox-5.1-5.1.22_115126_el7-1.x86_64.rpm
+yum install -y VirtualBox-5.1
+KERN_DIR=/usr/src/kernels/$(uname -r)
+export KERN_DIR
+/usr/lib/virtualbox/vboxdrv.sh setup
+usermod -a -G vboxusers root
+
+wget https://releases.hashicorp.com/vagrant/1.9.4/vagrant_1.9.4_x86_64.rpm
+rpm -Uvh vagrant_1.9.4_x86_64.rpm
